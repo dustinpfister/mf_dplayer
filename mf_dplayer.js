@@ -2,6 +2,11 @@
 mf_dplayer.js
 a deterministic animation player
 
+0.1.x
+
+ * add a kill when method
+
+
  */
 
 var dp = (function () {
@@ -12,23 +17,30 @@ var dp = (function () {
     // animation instance constructor
     ANI = function (obj) {
 
+        var s = this;
+
         // must know the animation
-        this.key = obj.key;
+        s.key = obj.key;
 
-        this.f = 0; // start at frame 0
-        this.mf = obj.mf || 75; // max frame of 50 for now
+        s.f = 0; // start at frame 0
+        s.mf = obj.mf || 75; // max frame of 50 for now
 
-        this.p = 0;
-        this.b = 0;
+        s.p = 0;
+        s.b = 0;
 
-        this.dr = []; // drawings
-        this.bx = []; // boxes
+        s.dr = []; // drawings
+        s.bx = []; // boxes
 
-        this.unit = obj.unit || {}; // a unit associated with the animation
-        this.onk = obj.onk || function () {};
+        s.unit = obj.unit || {}; // a unit associated with the animation
+        s.onk = obj.onk || function () {}; // on kill
+
+        s.loop = obj.loop || false;
+        s.kWhen = obj.kWhen || function () {
+            return false;
+        };
 
         // set initial state
-        load[this.key].ini.call(this);
+        load[s.key].ini.call(s);
 
         // set
         this.set();
@@ -46,6 +58,9 @@ var dp = (function () {
         load[s.key].ff.call(s);
 
     };
+
+    // kill if the given condition is true
+    ANI.prototype.killWhen = function (con) {};
 
     // public api
     return {
@@ -65,8 +80,21 @@ var dp = (function () {
                 // step frame forward
                 ani.f++;
 
+                if (ani.loop && ani.f >= ani.mf) {
+
+                    ani.f = 0;
+
+                }
+
                 // call set for the new frame
                 ani.set();
+
+                if (ani.kWhen()) {
+
+                    ani.f = ani.mf;
+                    ani.loop = false;
+
+                }
 
             });
 
