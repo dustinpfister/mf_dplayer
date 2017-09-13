@@ -79,3 +79,37 @@ dp.start({
 ```
 
 Then just use dp.tick to tick the current animation stack forward
+
+## onKill, looping, and killWhen
+
+The onk method is useful for defining some logic that is to run when the animation ends. Seting the looping bool will cuase the animation to loop over whith the same starting conditions, and the kWhen method is useful for defining some conditions that will result in the looping to end.
+
+```js
+dp.start({
+
+    key : 'pl_d',
+    mf : 40,
+    loop : true,
+    unit : unit,
+    onk : function () {
+
+        _.l('killed');
+
+    },
+
+    kWhen : function () {
+
+        _.lo(this);
+
+        if (this.unit.x >= 250) {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+});
+```
