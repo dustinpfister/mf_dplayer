@@ -44,8 +44,8 @@ dp.def({
         s.bx.forEach(function (bx, i) {
 
             bx.a = bx.he;
-            bx.x = s.unit.x + bx.X * bx.w + Math.cos(bx.he) * (50 * s.p);
-            bx.y = s.unit.y + bx.Y * bx.h + Math.sin(bx.he) * (50 * s.p);
+            bx.x = s.unit.x + bx.X * bx.w + Math.cos(bx.he) * (100 * s.p);
+            bx.y = s.unit.y + bx.Y * bx.h + Math.sin(bx.he) * (100 * s.p);
             bx.f = 'rgba(0,255,128,' + (1 - s.p) + ')';
             bx.s = 'rgba(255,255,255,' + (1 - s.p) + ')';
 
@@ -83,12 +83,13 @@ var loop = function () {
         dp.start({
 
             key : 'pl_d',
+            mf : Math.floor(_.r(100)*10),
             unit : {
 
                 x : 160 - 16,
                 y : 120 - 16,
                 w : 32,
-                h : 32
+                h : 32,
 
             }
         });
