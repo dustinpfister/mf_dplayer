@@ -6,8 +6,7 @@ dp.def({
 
     ini : function () {
 
-        var i = 0,
-        s = this;
+        var i = 0;
         while (i < 4) {
 
             this.bx.push({
@@ -60,26 +59,31 @@ dp.start({
     key : 'pl_d',
     unit : {
 
-        x : 0,
-        y : 0,
+        x : 160-16,
+        y : 120-16,
         w : 32,
         h : 32
 
     }
 });
 
+// game loop
 var loop = function () {
 
     if (dp.stack.length > 0) {
 
-        setTimeout(loop, 100);
+        setTimeout(loop, 20);
 
-		_.l(dp.stack[0]);
-		
+        C.cls();
+        dp.stack[0].bx.forEach(function (bx) {
+
+            C.dBX(bx);
+
+        });
+
         dp.tick();
-    }
 
-    
+    }
 
 };
 
