@@ -82,8 +82,6 @@ var dp = (function () {
 
                 if (ani.loop && ani.f >= ani.mf) {
 
-				_.l('yeah')
-				
                     ani.f = 0;
 
                 }
