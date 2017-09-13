@@ -27,6 +27,12 @@ var dp = (function () {
         this.unit = obj.unit || {}; // a unit associated with the animation
         this.onk = obj.onk || function () {};
 
+        // set initial state
+        load[this.key].ini.call(this);
+
+        // set
+        this.set();
+
     };
 
     // set the animation according to it's current frame
@@ -55,14 +61,12 @@ var dp = (function () {
 
             // update animations
             this.stack.forEach(function (ani) {
-                /*
-                ani.p = ani.f / ani.mf;
-                ani.b = 1 - Math.abs(.5 - ani.p) / .5;
 
-                load[ani.key].ff.call(ani);
-                 */
-                ani.set();
+                // step frame forward
                 ani.f++;
+
+                // call set for the new frame
+                ani.set();
 
             });
 
@@ -72,11 +76,14 @@ var dp = (function () {
 
                 ani = this.stack[i];
 
+                // if the current frame is greaer than or equal to the max frame value
+                // then the animation is over
                 if (ani.f >= ani.mf) {
 
                     // call on kill method
                     ani.onk();
 
+                    // purge dead animation from the stack
                     this.stack.splice(i, 1);
 
                 }
@@ -85,18 +92,13 @@ var dp = (function () {
 
         },
 
+        // start a new animation and add it to the stack
         start : function (obj) {
-
-            var ani;
 
             if (obj.key in load) {
 
-                ani = new ANI(obj);
-
-                // set initial state
-                load[obj.key].ini.call(ani);
-
-                this.stack.push(ani);
+                // this can be a one liner for now
+                this.stack.push(new ANI(obj));
 
             }
 
