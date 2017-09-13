@@ -1,3 +1,8 @@
+/*
+   this demo uses mf_dplayer 0.0.9
+
+*/
+
 
 // define an animation
 dp.def({

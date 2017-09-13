@@ -54,6 +54,21 @@ dp.def({
     }
 });
 
+dp.start({
+
+    key : 'pl_d',
+    mf : 40,
+    loop : true,
+    unit : {
+
+        x : 160 - 16,
+        y : 120 - 16,
+        w : 32,
+        h : 32
+
+    }
+
+});
 // game loop
 var loop = function () {
 
@@ -61,40 +76,27 @@ var loop = function () {
 
     requestAnimationFrame(loop);
 
-    if (s > 20) {
+    //    if (s > 0) {
 
-        C.cls();
+    C.cls();
 
-        var i = s;
-        while (i--) {
+    var i = s;
+    while (i--) {
 
-            dp.stack[i].bx.forEach(function (bx) {
+        dp.stack[i].bx.forEach(function (bx) {
 
-                C.dBX(bx);
+            C.dBX(bx);
 
-            });
-
-        }
-
-        dp.tick();
-
-    } else {
-
-        dp.start({
-
-            key : 'pl_d',
-            mf : Math.floor(_.r(100)*10),
-            unit : {
-
-                x : 160 - 16,
-                y : 120 - 16,
-                w : 32,
-                h : 32,
-
-            }
         });
 
     }
+
+    C.ctx.fillStyle = '#00ff00';
+    C.ctx.fillText(s, 20, 20);
+
+    dp.tick();
+
+    //  } else {}
 
 };
 
