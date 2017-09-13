@@ -54,34 +54,44 @@ dp.def({
     }
 });
 
-dp.start({
-
-    key : 'pl_d',
-    unit : {
-
-        x : 160-16,
-        y : 120-16,
-        w : 32,
-        h : 32
-
-    }
-});
-
 // game loop
 var loop = function () {
 
-    if (dp.stack.length > 0) {
+    var s = dp.stack.length;
 
-        setTimeout(loop, 20);
+    requestAnimationFrame(loop);
+
+    if (s > 20) {
 
         C.cls();
-        dp.stack[0].bx.forEach(function (bx) {
 
-            C.dBX(bx);
+        var i = s;
+        while (i--) {
 
-        });
+            dp.stack[i].bx.forEach(function (bx) {
+
+                C.dBX(bx);
+
+            });
+
+        }
 
         dp.tick();
+
+    } else {
+
+        dp.start({
+
+            key : 'pl_d',
+            unit : {
+
+                x : 160 - 16,
+                y : 120 - 16,
+                w : 32,
+                h : 32
+
+            }
+        });
 
     }
 

@@ -16,7 +16,7 @@ var dp = (function () {
         this.key = obj.key;
 
         this.f = 0; // start at frame 0
-        this.mf = 75; // max frame of 50 for now
+        this.mf = obj.mf || 75; // max frame of 50 for now
 
         this.p = 0;
         this.b = 0;
