@@ -1,3 +1,5 @@
+
+// define an animation
 dp.def({
 
     key : 'pl_d', // player death
@@ -66,6 +68,19 @@ dp.start({
     }
 });
 
-//dp.tick();
+var loop = function () {
 
-_.l(dp);
+    if (dp.stack.length > 0) {
+
+        setTimeout(loop, 100);
+
+		_.l(dp.stack[0]);
+		
+        dp.tick();
+    }
+
+    
+
+};
+
+loop();
